@@ -1,3 +1,5 @@
+#define _CRT_SECURE_NO_WARNINGS
+
 #include <tchar.h>
 #include <ctype.h>
 #include <stdio.h>
@@ -5,7 +7,7 @@
 #include <stddef.h>
 #include <stdarg.h>
 #include <minmax.h>
-
+#include <cstring>
 #include <assert.h>
 #include <errno.h>
 #include <io.h>
@@ -656,9 +658,10 @@ static void parse_headers(void)
 		switch (*(line + 1)) {
 		case 'U': // tail number
 			line += 3;									// skip past comma
-			for (int i = 0; i < sizeof(tailnum) - 1 && *line && *line != '*'; i++)
-				tailnum[i] = *line++;
-			tailnum[i] = 0;
+			int i;
+			for (i = 0; i < sizeof(tailnum) - 1 && *line && *line != '*'; i++)
+				tailnum[i] = *line++ ;
+				tailnum[i] = 0 ;
 			break;
 		case 'A': // limits info
 			parseshorts(&limits, line, 8);
